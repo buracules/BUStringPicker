@@ -1,0 +1,16 @@
+PODS:
+  - BUStringPicker (0.1.1)
+
+DEPENDENCIES:
+  - BUStringPicker (from `../`)
+
+EXTERNAL SOURCES:
+  BUStringPicker:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BUStringPicker: be4da75cf93b48ada3d7d9b7c3429a4db8bd2a6b
+
+PODFILE CHECKSUM: e5012e6b56019517cd98bd6da1b0be4e7a930d66
+
+COCOAPODS: 1.5.3

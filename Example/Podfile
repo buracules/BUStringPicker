@@ -1,0 +1,6 @@
+use_frameworks!
+
+target 'BUStringPicker_Example' do
+  pod 'BUStringPicker', :path => '../'
+
+end

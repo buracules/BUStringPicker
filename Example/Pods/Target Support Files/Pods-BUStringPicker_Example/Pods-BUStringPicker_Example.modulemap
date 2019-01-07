@@ -1,0 +1,6 @@
+framework module Pods_BUStringPicker_Example {
+  umbrella header "Pods-BUStringPicker_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
