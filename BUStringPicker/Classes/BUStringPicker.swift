@@ -236,6 +236,10 @@ public class BUStringPicker : UIView {
 //Actions
 extension BUStringPicker {
   @objc  func onDoneClick() {
+    if #available(iOS 10.0, *) {
+      let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+      notificationFeedbackGenerator.notificationOccurred(.success)
+    }
     dismiss {
       self.onSuccess?(self.selectedIndex,self.values[self.selectedIndex])
     }
@@ -265,7 +269,7 @@ public extension BUStringPicker {
     }
   }
   
-  public func setDoneButtonTitle(_ title: String, font:UIFont? = nil, textColor:UIColor = .black) {
+  public func setDoneButton(_ title: String, font:UIFont? = nil, textColor:UIColor = .black) {
     guard let button = doneButton.customView as? UIButton else { return }
     doneButton.isAccessibilityElement = false
     button.isAccessibilityElement = true
@@ -277,7 +281,7 @@ public extension BUStringPicker {
     }
   }
   
-  public func setCancelButtonTitle(_ title: String, font:UIFont? = nil, textColor:UIColor = .black) {
+  public func setCancelButton(_ title: String, font:UIFont? = nil, textColor:UIColor = .black) {
     guard let button = cancelButton.customView as? UIButton else { return }
     cancelButton.isAccessibilityElement = false
     button.isAccessibilityElement = true
@@ -289,7 +293,7 @@ public extension BUStringPicker {
     }
   }
   
-  public func setPickerFont(_ font: UIFont? = nil, _ textColor: UIColor = .black, _ aligment: NSTextAlignment = .center) {
+  public func setPicker(_ font: UIFont? = nil, _ textColor: UIColor = .black, _ aligment: NSTextAlignment = .center) {
     if let font = font {
       self.textFont = font
     }

@@ -27,13 +27,6 @@ public class AccesiblePickerView : UIView {
   }
   
   override public func accessibilityActivate() -> Bool {
-    if #available(iOS 10.0, *) {
-      let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-      notificationFeedbackGenerator.notificationOccurred(.success)
-    } else {
-      // Fallback on earlier versions
-    }
-    
     parent.onDoneClick()
     return true
   }

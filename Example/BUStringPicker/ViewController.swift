@@ -33,9 +33,9 @@ class ViewController: UIViewController {
     })
     picker.sheetbackgroundColor = .white
     picker.setTitle(font: UIFont.boldSystemFont(ofSize: 15))
-    picker.setPickerFont(UIFont.systemFont(ofSize: 12, weight: .bold))
-    picker.setDoneButtonTitle("Tamam", font: UIFont.boldSystemFont(ofSize: 12))
-    picker.setCancelButtonTitle("Vazgeç", font: UIFont.boldSystemFont(ofSize: 12))
+    picker.setPicker(UIFont.systemFont(ofSize: 12, weight: .bold))
+    picker.setDoneButton("Tamam", font: UIFont.boldSystemFont(ofSize: 12))
+    picker.setCancelButton("Vazgeç", font: UIFont.boldSystemFont(ofSize: 12))
     picker.tintColor = .black
     // Do any additional setup after loading the view, typically from a nib.
     
