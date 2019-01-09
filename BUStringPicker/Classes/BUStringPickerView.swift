@@ -67,6 +67,8 @@ class BUStringPickerView : UIView {
   lazy var doneButton:UIBarButtonItem = {
     let button = UIButton()
     button.setTitle("Done", for: .normal)
+    button.contentHorizontalAlignment = .right
+    button.contentVerticalAlignment = .bottom
     button.addTarget(self, action: #selector(onDoneClick), for: .touchUpInside)
     button.frame = CGRect(x: 0, y: 0, width: 70, height: 40)
     return UIBarButtonItem(customView: button)
@@ -81,6 +83,8 @@ class BUStringPickerView : UIView {
   lazy var cancelButton:UIBarButtonItem = {
     let button = UIButton()
     button.setTitle("Cancel", for: .normal)
+    button.contentHorizontalAlignment = .left
+    button.contentVerticalAlignment = .bottom
     button.addTarget(self, action: #selector(onCancelClick), for: .touchUpInside)
     button.frame = CGRect(x: 0, y: 0, width: 70, height: 40)
     return UIBarButtonItem(customView: button)
@@ -120,14 +124,16 @@ class BUStringPickerView : UIView {
     toolbar.isUserInteractionEnabled = true
     toolbar.isAccessibilityElement = true
     controlView.addSubview(toolbar)
+    toolbar.backgroundColor = .clear
     toolbar.translatesAutoresizingMaskIntoConstraints = false
-    toolbar.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -10).isActive = true
-    toolbar.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 10).isActive = true
+    toolbar.trailingAnchor.constraint(equalTo: controlView.trailingAnchor).isActive = true
+    toolbar.leadingAnchor.constraint(equalTo: controlView.leadingAnchor).isActive = true
     toolbar.topAnchor.constraint(equalTo: controlView.topAnchor).isActive = true
     toolbar.bottomAnchor.constraint(equalTo: controlView.bottomAnchor).isActive = true
     toolbar.isTranslucent = false
     
     controlView.layer.cornerRadius = 10
+    controlView.clipsToBounds = true
     if #available(iOS 11.0, *) {
       controlView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     } else {
@@ -208,7 +214,6 @@ class BUStringPickerView : UIView {
 //Actions
 extension BUStringPickerView {
   @objc  func onDoneClick() {
-    print("done click")
     onDoneCalled?()
   }
   
