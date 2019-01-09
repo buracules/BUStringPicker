@@ -14,7 +14,7 @@
 		CCDF3E3CCF7EE4C37BD1F471100E6981 /* Pods-BUStringPicker_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF785E5765B70C72C807D54AB7C02A0 /* Pods-BUStringPicker_Example-dummy.m */; };
 		D080E0C02D898F0DDE8A6DD8CA4776D0 /* BUStringPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPicker.swift */; };
 		E0C3A7C36A53D15B599213A9E539F1FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
-		E69A08C621E37DB400E7158D /* AccesiblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69A08C521E37DB300E7158D /* AccesiblePickerView.swift */; };
+		E69A08C621E37DB400E7158D /* AccesiblePickerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69A08C521E37DB300E7158D /* AccesiblePickerContainer.swift */; };
 		F4692E17CCC5EFFEC5E9DD459E73E9CC /* BUStringPicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC25C6C6F90B516B1B1423989F9C1B5 /* BUStringPicker-dummy.m */; };
 		FF985EE6EFDDA1B4E842D3731939A1EA /* BUStringPicker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 848C8105C428C553BFA19AD615AA1F2B /* BUStringPicker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -52,7 +52,7 @@
 		CD0AB22BF49D901241C3465C1E9A17AC /* Pods-BUStringPicker_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BUStringPicker_Example-umbrella.h"; sourceTree = "<group>"; };
 		D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BUStringPicker.swift; path = BUStringPicker/Classes/BUStringPicker.swift; sourceTree = "<group>"; };
-		E69A08C521E37DB300E7158D /* AccesiblePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccesiblePickerView.swift; path = BUStringPicker/Classes/AccesiblePickerView.swift; sourceTree = "<group>"; };
+		E69A08C521E37DB300E7158D /* AccesiblePickerContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccesiblePickerContainer.swift; path = BUStringPicker/Classes/AccesiblePickerContainer.swift; sourceTree = "<group>"; };
 		E6AC26FBC0354CEBC776E6389BB3C185 /* BUStringPicker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BUStringPicker.modulemap; sourceTree = "<group>"; };
 		E7303038EC5702497647771749E47B89 /* Pods-BUStringPicker_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BUStringPicker_Example.modulemap"; sourceTree = "<group>"; };
 		E8FAD465AA9D995390D21EC1C9CFF601 /* Pods-BUStringPicker_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BUStringPicker_Example-resources.sh"; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		98ABC0EF2CA163AB4D053A68201506DF /* BUStringPicker */ = {
 			isa = PBXGroup;
 			children = (
-				E69A08C521E37DB300E7158D /* AccesiblePickerView.swift */,
+				E69A08C521E37DB300E7158D /* AccesiblePickerContainer.swift */,
 				E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPicker.swift */,
 				2CB5408DD9B3154D2632310601A09723 /* BUPickerView.swift */,
 				2BB0C503CF8F9F4337812F71F6D6461A /* BUVisualEffect.swift */,
@@ -299,7 +299,7 @@
 				F4692E17CCC5EFFEC5E9DD459E73E9CC /* BUStringPicker-dummy.m in Sources */,
 				D080E0C02D898F0DDE8A6DD8CA4776D0 /* BUStringPicker.swift in Sources */,
 				AAD7E60716D43FDD707AD0E26D1ED18C /* BUVisualEffect.swift in Sources */,
-				E69A08C621E37DB400E7158D /* AccesiblePickerView.swift in Sources */,
+				E69A08C621E37DB400E7158D /* AccesiblePickerContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

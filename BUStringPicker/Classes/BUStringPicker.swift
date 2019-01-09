@@ -35,10 +35,7 @@ public class BUStringPicker : UIView {
     }
   }
   
-  public lazy var pickerView:AccesiblePickerView = {
-    let pickerView = AccesiblePickerView(self)
-    return pickerView
-  }()
+  let pickerContainer = AccesiblePickerContainer()
   
   public let toolbar = UIToolbar()
   
@@ -69,8 +66,8 @@ public class BUStringPicker : UIView {
     setTitle(title)
     setBindings()
     configureViews()
-    prepare()
-    pickerView.picker.selectRow(initialValue, inComponent: 0, animated: false)
+    
+    pickerContainer.picker.selectRow(initialValue, inComponent: 0, animated: false)
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -105,7 +102,7 @@ public class BUStringPicker : UIView {
     backgroundColor = .clear
     addSubview(pickerBackView)
     addSubview(controlView)
-    pickerBackView.addSubview(pickerView)
+    pickerBackView.addSubview(pickerContainer)
     
     pickerBackView.translatesAutoresizingMaskIntoConstraints = false
     pickerBackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -114,11 +111,11 @@ public class BUStringPicker : UIView {
     pickerBackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant : 10).isActive = true
     pickerBackView.clipsToBounds = true
     
-    pickerView.translatesAutoresizingMaskIntoConstraints = false
-    pickerView.leftAnchor.constraint(equalTo: pickerBackView.leftAnchor).isActive = true
-    pickerView.topAnchor.constraint(equalTo: pickerBackView.topAnchor).isActive = true
-    pickerView.rightAnchor.constraint(equalTo: pickerBackView.rightAnchor).isActive = true
-    pickerView.bottomAnchor.constraint(equalTo: pickerBackView.bottomAnchor).isActive = true
+    pickerContainer.translatesAutoresizingMaskIntoConstraints = false
+    pickerContainer.leftAnchor.constraint(equalTo: pickerBackView.leftAnchor).isActive = true
+    pickerContainer.topAnchor.constraint(equalTo: pickerBackView.topAnchor).isActive = true
+    pickerContainer.rightAnchor.constraint(equalTo: pickerBackView.rightAnchor).isActive = true
+    pickerContainer.bottomAnchor.constraint(equalTo: pickerBackView.bottomAnchor).isActive = true
     
     controlView.translatesAutoresizingMaskIntoConstraints = false
     controlView.heightAnchor.constraint(equalToConstant: controlsHeight).isActive = true
@@ -156,6 +153,7 @@ public class BUStringPicker : UIView {
     seperatorView.rightAnchor.constraint(equalTo: controlView.rightAnchor).isActive = true
     seperatorView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -0.5).isActive = true
     
+    prepare()
     setAccesibility()
   }
   
@@ -164,9 +162,9 @@ public class BUStringPicker : UIView {
       let cancelButton = cancelButton.customView as? UIButton,
       let doneButton = doneButton.customView as? UIButton else { return }
     if titleLabel.text == nil || titleLabel.text == "" {
-      accessibilityElements = [cancelButton,doneButton,pickerView]
+      accessibilityElements = [cancelButton,doneButton,pickerContainer]
     } else {
-      accessibilityElements = [cancelButton,titleLabel,doneButton,pickerView]
+      accessibilityElements = [cancelButton,titleLabel,doneButton,pickerContainer]
     }
     
     controlView.isAccessibilityElement = false
@@ -177,11 +175,15 @@ public class BUStringPicker : UIView {
   
   private func setBindings() {
     
-    pickerView.picker.numberOfRowsInComponent = { picker , component in
+    pickerContainer.picker.numberOfComponentsIn = { picker in
+      return 1
+    }
+    
+    pickerContainer.picker.numberOfRowsInComponent = { picker , component in
       return self.values.count
     }
     
-    pickerView.picker.viewForRow = {  picker, row, component, view in
+    pickerContainer.picker.viewForRow = {  picker, row, component, view in
       let label = UILabel()
       label.font = self.textFont
       label.text = self.values[row]
@@ -190,15 +192,15 @@ public class BUStringPicker : UIView {
       return label
     }
     
-    pickerView.picker.didSelectRow = { picker, row , component in
+    pickerContainer.picker.didSelectRow = { picker, row , component in
       self.selectedIndex = row
     }
-    
+    setAccesibilityBindings()
   }
   
   private func prepare() {
     if values.count > selectedIndex {
-      self.pickerView.picker.selectRow(selectedIndex, inComponent: 0, animated: false)
+      self.pickerContainer.picker.selectRow(selectedIndex, inComponent: 0, animated: false)
     } else {
       fatalError("initial index out of bounds!")
     }
@@ -208,9 +210,9 @@ public class BUStringPicker : UIView {
   
   //MARK: - Controls
   @objc public func show() {
-    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self)
     UIApplication.shared.keyWindow?.addSubview(visualEffectView)
     UIApplication.shared.keyWindow?.addSubview(self)
+    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, pickerContainer)
     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: .curveEaseOut, animations: {
       self.frame = self.frames.visible
       self.visualEffectView.alpha = 0.75
@@ -235,7 +237,8 @@ public class BUStringPicker : UIView {
 
 //Actions
 extension BUStringPicker {
-  @objc  func onDoneClick() {
+  @discardableResult
+  @objc  func onDoneClick() -> Bool {
     if #available(iOS 10.0, *) {
       let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
       notificationFeedbackGenerator.notificationOccurred(.success)
@@ -243,6 +246,7 @@ extension BUStringPicker {
     dismiss {
       self.onSuccess?(self.selectedIndex,self.values[self.selectedIndex])
     }
+    return true
   }
   
   @objc func onCancelClick() {
@@ -298,10 +302,44 @@ public extension BUStringPicker {
       self.textFont = font
     }
     self.textColor = textColor
-    pickerView.picker.reloadAllComponents()
+    pickerContainer.picker.reloadAllComponents()
   }
   
   
+}
+
+//Accesibility Controls
+extension BUStringPicker {
+  private func setAccesibilityText() {
+    pickerContainer.picker.selectRow(selectedIndex, inComponent: 0, animated: true)
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, values[selectedIndex])
+    if #available(iOS 10.0, *) {
+      let hapticGenerator = UISelectionFeedbackGenerator()
+      hapticGenerator.selectionChanged()
+    }
+    
+  }
+  
+  private func setAccesibilityBindings() {
+    pickerContainer.accesibilityIncrement = {
+      if self.selectedIndex + 1 < self.values.count {
+        self.selectedIndex = self.selectedIndex + 1
+        self.setAccesibilityText()
+      }
+    }
+    
+    pickerContainer.accesibilityDecrement = {
+      if self.selectedIndex - 1 >= 0 {
+        self.selectedIndex = self.selectedIndex - 1
+        self.setAccesibilityText()
+      }
+    }
+    
+    pickerContainer.accesibilityActivate = {
+      return self.onDoneClick()
+    }
+    
+  }
 }
 
 

@@ -11,19 +11,15 @@ import UIKit
 
 class BUPickerView : UIPickerView {
   
+  //MARK: CallBacks
+  var numberOfComponentsIn :((_ pickerView: UIPickerView) -> Int)?
   var numberOfRowsInComponent : ((_ pickerView : UIPickerView, _ component: Int) -> Int)?
-  
   var titlesForRow : ((_ pickerView : UIPickerView, _ row : Int, _ component : Int) -> String?)?
-  
   var didSelectRow : ((_ pickerView : UIPickerView, _ row : Int, _ component : Int) -> ())?
-  
   var viewForRow :((_ pickerView: UIPickerView, _ row: Int, _ component: Int, _ view: UIView?) -> UIView )?
   
-  weak var parentView:BUStringPicker!
-  
-  convenience init(_ parent: BUStringPicker) {
+  convenience init() {
     self.init(frame: .zero)
-    self.parentView = parent
     delegate = self
     dataSource = self
     isAccessibilityElement = false
@@ -33,21 +29,19 @@ class BUPickerView : UIPickerView {
 
 extension BUPickerView : UIPickerViewDelegate, UIPickerViewDataSource {
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
+    return numberOfComponentsIn?(pickerView) ?? 0
   }
-
+  
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return (self.numberOfRowsInComponent?(pickerView, component))!
+    return numberOfRowsInComponent?(pickerView, component) ?? 0
   }
   
   func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-    
-    return (self.viewForRow?(pickerView,row,component,view))!
-    
+    return viewForRow?(pickerView,row,component,view) ?? UIView()
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    self.didSelectRow?(pickerView, row, component)
+    didSelectRow?(pickerView, row, component)
   }
 }
 
