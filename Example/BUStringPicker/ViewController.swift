@@ -20,23 +20,21 @@ class ViewController: UIViewController {
   }
   
   let values = ["Mario Speedwagon", "Petey Cruiser", "Anna Sthesia","Paul Molive", "Anna Mull", "Gail Forcewind","Paige Turner", "Bob Frapples", "Walter Melon","Nick R. Bocker"]
-  var picker:BUStringPicker!
+  var picker:BUStringPickerController!
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
-    picker = BUStringPicker("Users", values: values, initialValue: 1, onSuccess: { (row, value) in
+    picker = BUStringPickerController("Users", values: values, initialValue: 1, onSuccess: { (row, value) in
       print(value)
     }, onCancel: {
       print("canceled")
     })
-    picker.sheetbackgroundColor = .white
     picker.setTitle(font: UIFont.boldSystemFont(ofSize: 15))
     picker.setPicker(UIFont.systemFont(ofSize: 12, weight: .bold))
     picker.setDoneButton("Tamam", font: UIFont.boldSystemFont(ofSize: 12))
     picker.setCancelButton("Vazgeç", font: UIFont.boldSystemFont(ofSize: 12))
-    picker.tintColor = .black
     // Do any additional setup after loading the view, typically from a nib.
     
   }

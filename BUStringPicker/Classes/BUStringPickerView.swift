@@ -8,25 +8,18 @@
 
 import UIKit
 
-public class BUStringPicker : UIView {
+class BUStringPickerView : UIView {
   
-  fileprivate struct Frames {
+  struct Frames {
     private let sheetHeight:CGFloat = 300
     lazy var hidden:CGRect = CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: sheetHeight)
     lazy var visible:CGRect = CGRect(x: 0, y: UIScreen.main.bounds.height - sheetHeight, width: UIScreen.main.bounds.width, height: sheetHeight)
   }
   
-  public typealias doneBlock = ((_ selectedRow: Int, _ value: String)->())?
-  public typealias cancelBlock = (()->())?
-  
   var values:[String]!
   
-  private var onSuccess: doneBlock
-  private var onCancel: cancelBlock
-  
-  private lazy var visualEffectView = BuVisualEffect(0) {
-    self.dismiss(nil)
-  }
+  var onDoneCalled:(()->(Bool))?
+  var onCancelCalled:(()->())?
   
   public var sheetbackgroundColor : UIColor? {
     didSet{
@@ -37,6 +30,12 @@ public class BUStringPicker : UIView {
   
   let pickerContainer = AccesiblePickerContainer()
   
+  var picker:BUPickerView {
+    get {
+      return pickerContainer.picker
+    }
+  }
+  
   public let toolbar = UIToolbar()
   
   internal var selectedIndex:Int!
@@ -44,26 +43,17 @@ public class BUStringPicker : UIView {
   private let controlView = UIView()
   
   public var isVisible:Bool = false
-  private let controlsHeight:CGFloat = 40
-  private var textFont:UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-  private var textAligment:NSTextAlignment = .center
-  private var textColor:UIColor = .black
-  private var frames = Frames()
+  let controlsHeight:CGFloat = 40
+  var textFont:UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+  var textAligment:NSTextAlignment = .center
+  var textColor:UIColor = .black
+  var frames = Frames()
   
-  public init(_ title:String = "", values : [String], initialValue : Int = 0, onSuccess : doneBlock? = nil, onCancel : cancelBlock?) {
+  public init(_ title:String = "", values : [String], initialValue : Int = 0) {
     super.init(frame: frames.hidden)
-    accessibilityViewIsModal = true
-    
-    if let onSuccess = onSuccess {
-      self.onSuccess = onSuccess
-    }
-    if let onCancel = onCancel {
-      self.onCancel = onCancel
-    }
-    visualEffectView.frame = UIScreen.main.bounds
+    setTitle(title)
     self.values = values
     selectedIndex = initialValue
-    setTitle(title)
     setBindings()
     configureViews()
     
@@ -74,28 +64,26 @@ public class BUStringPicker : UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private lazy var doneButton:UIBarButtonItem = {
+  lazy var doneButton:UIBarButtonItem = {
     let button = UIButton()
     button.setTitle("Done", for: .normal)
     button.addTarget(self, action: #selector(onDoneClick), for: .touchUpInside)
     return UIBarButtonItem(customView: button)
   }()
   
-  private let titleLabel:UIBarButtonItem = {
+  let titleLabel:UIBarButtonItem = {
     let label = UILabel()
     label.text = ""
     return UIBarButtonItem(customView: label)
   }()
   
-  private lazy var cancelButton:UIBarButtonItem = {
+  lazy var cancelButton:UIBarButtonItem = {
     let button = UIButton()
     button.setTitle("Cancel", for: .normal)
     button.setTitle("Cancel", for: .highlighted)
     button.addTarget(self, action: #selector(onCancelClick), for: .touchUpInside)
     return UIBarButtonItem(customView: button)
   }()
-  
-
   
   private func configureViews() {
     sheetbackgroundColor = .white
@@ -157,7 +145,14 @@ public class BUStringPicker : UIView {
     setAccesibility()
   }
   
-  private func setAccesibility() {
+  func setTitle(_ title : String? = nil) {
+    if let titleLabel = titleLabel.customView as? UILabel{
+      titleLabel.text = title
+      titleLabel.accessibilityLabel = title
+    }
+  }
+  
+   func setAccesibility() {
     guard let titleLabel = titleLabel.customView as? UILabel,
       let cancelButton = cancelButton.customView as? UIButton,
       let doneButton = doneButton.customView as? UIButton else { return }
@@ -206,110 +201,24 @@ public class BUStringPicker : UIView {
     }
   }
   
-  
-  
-  //MARK: - Controls
-  @objc public func show() {
-    UIApplication.shared.keyWindow?.addSubview(visualEffectView)
-    UIApplication.shared.keyWindow?.addSubview(self)
-    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, pickerContainer)
-    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: .curveEaseOut, animations: {
-      self.frame = self.frames.visible
-      self.visualEffectView.alpha = 0.75
-    }) { (success) in
-      self.isVisible = true
-    }
-  }
-  
-  @objc public func dismiss(_ onSuccess:(()->())?) {
-    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: .curveEaseOut, animations: {
-      self.frame = self.frames.hidden
-      self.visualEffectView.alpha = 0
-    }) { (success) in
-      self.isVisible = false
-      self.removeFromSuperview()
-      self.visualEffectView.removeFromSuperview()
-      onSuccess?()
-    }
-  }
-  
 }
 
 //Actions
-extension BUStringPicker {
+extension BUStringPickerView {
   @discardableResult
   @objc  func onDoneClick() -> Bool {
-    if #available(iOS 10.0, *) {
-      let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-      notificationFeedbackGenerator.notificationOccurred(.success)
-    }
-    dismiss {
-      self.onSuccess?(self.selectedIndex,self.values[self.selectedIndex])
-    }
-    return true
+    return onDoneCalled?() ?? true
   }
   
   @objc func onCancelClick() {
-    dismiss {
-      self.onCancel?()
-    }
+    onCancelCalled?()
   }
 }
 
-//Style Controls
-public extension BUStringPicker {
-  public func setTitle(font:UIFont? = nil) {
-    if let titleLabel = titleLabel.customView as? UILabel{
-      if let font = font {
-        titleLabel.font = font
-      }
-    }
-  }
-  
-  func setTitle(_ title : String? = nil) {
-    if let titleLabel = titleLabel.customView as? UILabel{
-      titleLabel.text = title
-      titleLabel.accessibilityLabel = title
-    }
-  }
-  
-  public func setDoneButton(_ title: String, font:UIFont? = nil, textColor:UIColor = .black) {
-    guard let button = doneButton.customView as? UIButton else { return }
-    doneButton.isAccessibilityElement = false
-    button.isAccessibilityElement = true
-    button.accessibilityLabel = title
-    button.setTitle(title, for: .normal)
-    button.setTitleColor(textColor, for: .normal)
-    if let font = font {
-      button.titleLabel?.font = font
-    }
-  }
-  
-  public func setCancelButton(_ title: String, font:UIFont? = nil, textColor:UIColor = .black) {
-    guard let button = cancelButton.customView as? UIButton else { return }
-    cancelButton.isAccessibilityElement = false
-    button.isAccessibilityElement = true
-    button.accessibilityLabel = title
-    button.setTitle(title, for: .normal)
-    button.setTitleColor(textColor, for: .normal)
-    if let font = font {
-      button.titleLabel?.font = font
-    }
-  }
-  
-  public func setPicker(_ font: UIFont? = nil, _ textColor: UIColor = .black, _ aligment: NSTextAlignment = .center) {
-    if let font = font {
-      self.textFont = font
-    }
-    self.textColor = textColor
-    pickerContainer.picker.reloadAllComponents()
-  }
-  
-  
-}
+
 
 //Accesibility Controls
-extension BUStringPicker {
+extension BUStringPickerView {
   private func setAccesibilityText() {
     pickerContainer.picker.selectRow(selectedIndex, inComponent: 0, animated: true)
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, values[selectedIndex])
@@ -317,7 +226,6 @@ extension BUStringPicker {
       let hapticGenerator = UISelectionFeedbackGenerator()
       hapticGenerator.selectionChanged()
     }
-    
   }
   
   private func setAccesibilityBindings() {

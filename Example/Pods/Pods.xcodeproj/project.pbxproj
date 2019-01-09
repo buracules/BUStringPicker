@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		21F050130FC2637B02993C732E380452 /* BUPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB5408DD9B3154D2632310601A09723 /* BUPickerView.swift */; };
+		3F2E9BB021E60B0600C717E8 /* BUStringPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E9BAF21E60B0600C717E8 /* BUStringPickerController.swift */; };
 		46233EE5D16DB6C514AD64110878FED6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
 		A9221F5391983229434819679A1742B5 /* Pods-BUStringPicker_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0AB22BF49D901241C3465C1E9A17AC /* Pods-BUStringPicker_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAD7E60716D43FDD707AD0E26D1ED18C /* BUVisualEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB0C503CF8F9F4337812F71F6D6461A /* BUVisualEffect.swift */; };
 		CCDF3E3CCF7EE4C37BD1F471100E6981 /* Pods-BUStringPicker_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF785E5765B70C72C807D54AB7C02A0 /* Pods-BUStringPicker_Example-dummy.m */; };
-		D080E0C02D898F0DDE8A6DD8CA4776D0 /* BUStringPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPicker.swift */; };
+		D080E0C02D898F0DDE8A6DD8CA4776D0 /* BUStringPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPickerView.swift */; };
 		E0C3A7C36A53D15B599213A9E539F1FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
 		E69A08C621E37DB400E7158D /* AccesiblePickerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69A08C521E37DB300E7158D /* AccesiblePickerContainer.swift */; };
 		F4692E17CCC5EFFEC5E9DD459E73E9CC /* BUStringPicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC25C6C6F90B516B1B1423989F9C1B5 /* BUStringPicker-dummy.m */; };
@@ -34,6 +35,7 @@
 		1D8F9A7AF3402002471F63DF6674CB79 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2BB0C503CF8F9F4337812F71F6D6461A /* BUVisualEffect.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BUVisualEffect.swift; path = BUStringPicker/Classes/BUVisualEffect.swift; sourceTree = "<group>"; };
 		2CB5408DD9B3154D2632310601A09723 /* BUPickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BUPickerView.swift; path = BUStringPicker/Classes/BUPickerView.swift; sourceTree = "<group>"; };
+		3F2E9BAF21E60B0600C717E8 /* BUStringPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BUStringPickerController.swift; path = BUStringPicker/Classes/BUStringPickerController.swift; sourceTree = "<group>"; };
 		43C504062BA56EACFE671C287ADADAF7 /* Pods_BUStringPicker_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BUStringPicker_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AB6E5AD12371862FFAAF492DE0DBB3 /* Pods-BUStringPicker_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BUStringPicker_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		5D2F07DBA3579A04838053D90E545FFF /* Pods-BUStringPicker_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BUStringPicker_Example-frameworks.sh"; sourceTree = "<group>"; };
@@ -51,7 +53,7 @@
 		BB6C29D1AB0747A71781E7CEF6145AD0 /* BUStringPicker-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BUStringPicker-prefix.pch"; sourceTree = "<group>"; };
 		CD0AB22BF49D901241C3465C1E9A17AC /* Pods-BUStringPicker_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BUStringPicker_Example-umbrella.h"; sourceTree = "<group>"; };
 		D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BUStringPicker.swift; path = BUStringPicker/Classes/BUStringPicker.swift; sourceTree = "<group>"; };
+		E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BUStringPickerView.swift; path = BUStringPicker/Classes/BUStringPickerView.swift; sourceTree = "<group>"; };
 		E69A08C521E37DB300E7158D /* AccesiblePickerContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccesiblePickerContainer.swift; path = BUStringPicker/Classes/AccesiblePickerContainer.swift; sourceTree = "<group>"; };
 		E6AC26FBC0354CEBC776E6389BB3C185 /* BUStringPicker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BUStringPicker.modulemap; sourceTree = "<group>"; };
 		E7303038EC5702497647771749E47B89 /* Pods-BUStringPicker_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BUStringPicker_Example.modulemap"; sourceTree = "<group>"; };
@@ -168,8 +170,9 @@
 		98ABC0EF2CA163AB4D053A68201506DF /* BUStringPicker */ = {
 			isa = PBXGroup;
 			children = (
+				3F2E9BAF21E60B0600C717E8 /* BUStringPickerController.swift */,
 				E69A08C521E37DB300E7158D /* AccesiblePickerContainer.swift */,
-				E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPicker.swift */,
+				E3998C547EE91EC475BC0BE89FD63ACC /* BUStringPickerView.swift */,
 				2CB5408DD9B3154D2632310601A09723 /* BUPickerView.swift */,
 				2BB0C503CF8F9F4337812F71F6D6461A /* BUVisualEffect.swift */,
 				286DDBA342989A7F2E11DAE2FA0E873D /* Pod */,
@@ -296,8 +299,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				21F050130FC2637B02993C732E380452 /* BUPickerView.swift in Sources */,
+				3F2E9BB021E60B0600C717E8 /* BUStringPickerController.swift in Sources */,
 				F4692E17CCC5EFFEC5E9DD459E73E9CC /* BUStringPicker-dummy.m in Sources */,
-				D080E0C02D898F0DDE8A6DD8CA4776D0 /* BUStringPicker.swift in Sources */,
+				D080E0C02D898F0DDE8A6DD8CA4776D0 /* BUStringPickerView.swift in Sources */,
 				AAD7E60716D43FDD707AD0E26D1ED18C /* BUVisualEffect.swift in Sources */,
 				E69A08C621E37DB400E7158D /* AccesiblePickerContainer.swift in Sources */,
 			);

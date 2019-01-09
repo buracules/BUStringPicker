@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BUStringPicker'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'Accesible String Picker'
   s.homepage         = 'https://github.com/burakustn/BUStringPicker'
   s.screenshots      = 'https://burakustn.com/assets/images/BUStringPicker.png'
