@@ -12,13 +12,13 @@ class BUStringPickerView : UIView {
   
   struct Frames {
     private let sheetHeight:CGFloat = 300
-    lazy var hidden:CGRect = CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: sheetHeight)
+    lazy var hidden:CGRect = CGRect(x: 0, y: UIScreen.main.bounds.height + 50, width: UIScreen.main.bounds.width, height: sheetHeight)
     lazy var visible:CGRect = CGRect(x: 0, y: UIScreen.main.bounds.height - sheetHeight, width: UIScreen.main.bounds.width, height: sheetHeight)
   }
   
   var values:[String]!
   
-  var onDoneCalled:(()->(Bool))?
+  var onDoneCalled:(()->())?
   var onCancelCalled:(()->())?
   
   public var sheetbackgroundColor : UIColor? {
@@ -68,6 +68,7 @@ class BUStringPickerView : UIView {
     let button = UIButton()
     button.setTitle("Done", for: .normal)
     button.addTarget(self, action: #selector(onDoneClick), for: .touchUpInside)
+    button.frame = CGRect(x: 0, y: 0, width: 70, height: 40)
     return UIBarButtonItem(customView: button)
   }()
   
@@ -80,8 +81,8 @@ class BUStringPickerView : UIView {
   lazy var cancelButton:UIBarButtonItem = {
     let button = UIButton()
     button.setTitle("Cancel", for: .normal)
-    button.setTitle("Cancel", for: .highlighted)
     button.addTarget(self, action: #selector(onCancelClick), for: .touchUpInside)
+    button.frame = CGRect(x: 0, y: 0, width: 70, height: 40)
     return UIBarButtonItem(customView: button)
   }()
   
@@ -106,6 +107,7 @@ class BUStringPickerView : UIView {
     pickerContainer.bottomAnchor.constraint(equalTo: pickerBackView.bottomAnchor).isActive = true
     
     controlView.translatesAutoresizingMaskIntoConstraints = false
+    controlView.isUserInteractionEnabled = true
     controlView.heightAnchor.constraint(equalToConstant: controlsHeight).isActive = true
     controlView.leftAnchor.constraint(equalTo: pickerBackView.leftAnchor).isActive = true
     controlView.rightAnchor.constraint(equalTo: pickerBackView.rightAnchor).isActive = true
@@ -205,9 +207,9 @@ class BUStringPickerView : UIView {
 
 //Actions
 extension BUStringPickerView {
-  @discardableResult
-  @objc  func onDoneClick() -> Bool {
-    return onDoneCalled?() ?? true
+  @objc  func onDoneClick() {
+    print("done click")
+    onDoneCalled?()
   }
   
   @objc func onCancelClick() {
@@ -244,7 +246,8 @@ extension BUStringPickerView {
     }
     
     pickerContainer.accesibilityActivate = {
-      return self.onDoneClick()
+      self.onDoneCalled?()
+      return true
     }
     
   }

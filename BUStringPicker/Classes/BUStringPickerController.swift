@@ -42,8 +42,13 @@ public class BUStringPickerController: UIViewController {
   }
   
   public func show() {
+    let clickBlocker = UIView()
+    clickBlocker.backgroundColor = .clear
     view.addSubview(visualEffectView)
+    view.addSubview(clickBlocker)
+    clickBlocker.frame = CGRect(x: 0, y: view.frame.height - picker.frames.visible.height - 50, width: view.frame.width, height: 100)
     visualEffectView.frame = view.bounds
+    
     view.addSubview(picker)
     modalPresentationStyle = .overCurrentContext
     picker.pickerContainer.accessibilityFrame = CGRect(x: 0, y: view.frame.height - picker.frames.visible.height + picker.controlsHeight/2, width: view.frame.width, height: picker.frames.visible.height - picker.controlsHeight/2)
@@ -88,7 +93,6 @@ public class BUStringPickerController: UIViewController {
       self.dismissAnimation {
         self.onSuccess?(self.picker.selectedIndex,self.picker.values[self.picker.selectedIndex])
       }
-      return true
     }
   }
 }
