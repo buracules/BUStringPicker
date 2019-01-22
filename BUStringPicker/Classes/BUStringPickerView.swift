@@ -67,10 +67,10 @@ class BUStringPickerView : UIView {
   lazy var doneButton:UIBarButtonItem = {
     let button = UIButton()
     button.setTitle("Done", for: .normal)
+    button.backgroundColor = .white
     button.contentHorizontalAlignment = .right
-    button.contentVerticalAlignment = .bottom
+    button.contentVerticalAlignment = .center
     button.addTarget(self, action: #selector(onDoneClick), for: .touchUpInside)
-    button.frame = CGRect(x: 0, y: 0, width: 70, height: 40)
     return UIBarButtonItem(customView: button)
   }()
   
@@ -82,11 +82,12 @@ class BUStringPickerView : UIView {
   
   lazy var cancelButton:UIBarButtonItem = {
     let button = UIButton()
+    button.backgroundColor = .white
     button.setTitle("Cancel", for: .normal)
     button.contentHorizontalAlignment = .left
-    button.contentVerticalAlignment = .bottom
+    button.contentVerticalAlignment = .center
     button.addTarget(self, action: #selector(onCancelClick), for: .touchUpInside)
-    button.frame = CGRect(x: 0, y: 0, width: 70, height: 40)
+//    button.frame = CGRect(x: 0, y: 0, width: 70, height: 40)
     return UIBarButtonItem(customView: button)
   }()
   
@@ -94,7 +95,7 @@ class BUStringPickerView : UIView {
     sheetbackgroundColor = .white
     backgroundColor = .clear
     addSubview(pickerBackView)
-    addSubview(controlView)
+    pickerBackView.addSubview(controlView)
     pickerBackView.addSubview(pickerContainer)
     
     pickerBackView.translatesAutoresizingMaskIntoConstraints = false
@@ -106,23 +107,24 @@ class BUStringPickerView : UIView {
     
     pickerContainer.translatesAutoresizingMaskIntoConstraints = false
     pickerContainer.leftAnchor.constraint(equalTo: pickerBackView.leftAnchor).isActive = true
-    pickerContainer.topAnchor.constraint(equalTo: pickerBackView.topAnchor).isActive = true
+    pickerContainer.topAnchor.constraint(equalTo: controlView.bottomAnchor).isActive = true
     pickerContainer.rightAnchor.constraint(equalTo: pickerBackView.rightAnchor).isActive = true
     pickerContainer.bottomAnchor.constraint(equalTo: pickerBackView.bottomAnchor).isActive = true
     
     controlView.translatesAutoresizingMaskIntoConstraints = false
-    controlView.isUserInteractionEnabled = true
+//    controlView.isUserInteractionEnabled = true
     controlView.heightAnchor.constraint(equalToConstant: controlsHeight).isActive = true
     controlView.leftAnchor.constraint(equalTo: pickerBackView.leftAnchor).isActive = true
     controlView.rightAnchor.constraint(equalTo: pickerBackView.rightAnchor).isActive = true
-    controlView.topAnchor.constraint(equalTo: topAnchor, constant: -1 * (controlsHeight/2)).isActive = true
+    controlView.topAnchor.constraint(equalTo: pickerBackView.topAnchor).isActive = true
     
     
     let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let rightSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     toolbar.setItems([cancelButton, leftSpace, titleLabel, rightSpace, doneButton], animated: false)
-    toolbar.isUserInteractionEnabled = true
-    toolbar.isAccessibilityElement = true
+    toolbar.isOpaque = true
+//    toolbar.isUserInteractionEnabled = true
+//    toolbar.isAccessibilityElement = true
     controlView.addSubview(toolbar)
     toolbar.backgroundColor = .clear
     toolbar.translatesAutoresizingMaskIntoConstraints = false
@@ -131,13 +133,14 @@ class BUStringPickerView : UIView {
     toolbar.topAnchor.constraint(equalTo: controlView.topAnchor).isActive = true
     toolbar.bottomAnchor.constraint(equalTo: controlView.bottomAnchor).isActive = true
     toolbar.isTranslucent = false
-    
-    controlView.layer.cornerRadius = 10
-    controlView.clipsToBounds = true
+  
     if #available(iOS 11.0, *) {
-      controlView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    } else {
-      // Fallback on earlier versions
+      pickerBackView.layer.cornerRadius = 10
+      pickerBackView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+      pickerBackView.clipsToBounds = true
+//      controlView.layer.cornerRadius = 10
+//      controlView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//      controlView.clipsToBounds = true
     }
     
     let seperatorView = UIView()
