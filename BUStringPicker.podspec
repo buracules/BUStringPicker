@@ -8,10 +8,10 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BUStringPicker'
-  s.version          = '1.0.6'
+  s.version          = '1.0.8'
   s.summary          = 'Accesible String Picker'
   s.homepage         = 'https://github.com/burakustn/BUStringPicker'
-  s.screenshots      = 'https://burakustn.com/assets/images/BUStringPicker.png'
+#  s.screenshots      = 'https://burakustn.com/assets/images/BUStringPicker.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'burakustn' => 'burakustn@gmail.com' }
   s.source           = { :git => 'https://github.com/burakustn/BUStringPicker.git', :tag => s.version.to_s }

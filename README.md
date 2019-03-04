@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/BUStringPicker.svg?style=flat)](https://cocoapods.org/pods/BUStringPicker)
 
 
-<img src="https://burakustn.com/assets/images/BUStringPicker.png" alt="drawing" width="300"/>
+<img src="https://ustun.co/assets/images/BUStringPicker.png" alt="drawing" width="300"/>
 
 ## Usage
 ```swift
@@ -48,7 +48,7 @@ setPickerFont(_ font: UIFont?, _ textColor: UIColor, _ aligment: NSTextAlignment
 
 ## Author
 
-burakustn, burak.ustun@yga.org.tr
+Burak Üstün, burakustn@gmail.com
 
 ## License
 
