@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/BUStringPicker.svg?style=flat)](https://cocoapods.org/pods/BUStringPicker)
 
 
-<img src="https://ustun.co/assets/images/BUStringPicker.png" alt="drawing" width="300"/>
+<img src="https://burakustn.github.io/assets/images/BUStringPicker.png" alt="drawing" width="300"/>
 
 ## Usage
 ```swift
